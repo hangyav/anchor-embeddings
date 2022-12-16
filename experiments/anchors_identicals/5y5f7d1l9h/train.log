@@ -1,0 +1,25 @@
+INFO - 12/01/22 17:44:35 - 0:00:00 - ============ Initialized logger ============
+INFO - 12/01/22 17:44:35 - 0:00:00 - cuda: False
+                                     dico_eval: data/dictionaries/en_de/en-de.5000-6500.txt
+                                     emb_dim: 300
+                                     exp_id: 
+                                     exp_name: anchors_identicals
+                                     exp_path: /u/halle/ralev/home_at/Desktop/Hiwi/multilingual-embeddings-anchors/MUSE/dumped/anchors_identicals/5y5f7d1l9h
+                                     max_vocab: 200000
+                                     normalize_embeddings: 
+                                     src_emb: models/en_model.txt
+                                     src_lang: de
+                                     tgt_emb: models/anchor_de_en_cbow_300_identicals_bigger_than_4.kv
+                                     tgt_lang: en
+                                     verbose: 2
+INFO - 12/01/22 17:44:36 - 0:00:00 - The experiment will be stored in /u/halle/ralev/home_at/Desktop/Hiwi/multilingual-embeddings-anchors/MUSE/dumped/anchors_identicals/5y5f7d1l9h
+INFO - 12/01/22 17:45:11 - 0:00:36 - Loaded 200000 pre-trained word embeddings.
+INFO - 12/01/22 17:45:18 - 0:00:43 - Loaded 90509 pre-trained word embeddings.
+INFO - 12/01/22 17:45:19 - 0:00:44 - Found 3334 pairs of words in the dictionary (1460 unique). 326 other pairs contained at least one unknown word (0 in lang1, 326 in lang2)
+INFO - 12/01/22 17:45:22 - 0:00:46 - 1460 source words - nn - Precision at k = 1: 7.602740
+INFO - 12/01/22 17:45:22 - 0:00:46 - 1460 source words - nn - Precision at k = 5: 8.972603
+INFO - 12/01/22 17:45:22 - 0:00:46 - 1460 source words - nn - Precision at k = 10: 9.931507
+INFO - 12/01/22 17:45:22 - 0:00:47 - Found 3334 pairs of words in the dictionary (1460 unique). 326 other pairs contained at least one unknown word (0 in lang1, 326 in lang2)
+INFO - 12/01/22 17:50:06 - 0:05:30 - 1460 source words - csls_knn_10 - Precision at k = 1: 7.876712
+INFO - 12/01/22 17:50:06 - 0:05:30 - 1460 source words - csls_knn_10 - Precision at k = 5: 9.657534
+INFO - 12/01/22 17:50:06 - 0:05:30 - 1460 source words - csls_knn_10 - Precision at k = 10: 10.547945

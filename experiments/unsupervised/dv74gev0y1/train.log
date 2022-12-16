@@ -1,0 +1,46 @@
+INFO - 12/01/22 16:55:33 - 0:00:00 - ============ Initialized logger ============
+INFO - 12/01/22 16:55:33 - 0:00:00 - adversarial: True
+                                     batch_size: 32
+                                     cuda: False
+                                     dico_build: S2T
+                                     dico_eval: data/dictionaries/en_de/en-de.5000-6500.txt
+                                     dico_max_rank: 15000
+                                     dico_max_size: 0
+                                     dico_method: csls_knn_10
+                                     dico_min_size: 0
+                                     dico_threshold: 0
+                                     dis_clip_weights: 0
+                                     dis_dropout: 0.0
+                                     dis_hid_dim: 2048
+                                     dis_input_dropout: 0.1
+                                     dis_lambda: 1
+                                     dis_layers: 2
+                                     dis_most_frequent: 75000
+                                     dis_optimizer: sgd,lr=0.1
+                                     dis_smooth: 0.1
+                                     dis_steps: 5
+                                     emb_dim: 300
+                                     epoch_size: 1000000
+                                     exp_id: 
+                                     exp_name: unsupervised
+                                     exp_path: /u/halle/ralev/home_at/Desktop/Hiwi/multilingual-embeddings-anchors/MUSE/dumped/unsupervised/dv74gev0y1
+                                     export: txt
+                                     lr_decay: 0.98
+                                     lr_shrink: 0.5
+                                     map_beta: 0.001
+                                     map_id_init: True
+                                     map_optimizer: sgd,lr=0.1
+                                     max_vocab: 200000
+                                     min_lr: 1e-06
+                                     n_epochs: 5
+                                     n_refinement: 5
+                                     normalize_embeddings: 
+                                     seed: -1
+                                     src_emb: models/en_model.txt
+                                     src_lang: de
+                                     tgt_emb: models/de_model.txt
+                                     tgt_lang: en
+                                     verbose: 2
+INFO - 12/01/22 16:55:33 - 0:00:00 - The experiment will be stored in /u/halle/ralev/home_at/Desktop/Hiwi/multilingual-embeddings-anchors/MUSE/dumped/unsupervised/dv74gev0y1
+INFO - 12/01/22 16:55:43 - 0:00:10 - Loaded 200000 pre-trained word embeddings.
+INFO - 12/01/22 16:55:50 - 0:00:18 - Loaded 90509 pre-trained word embeddings.

@@ -1,0 +1,27 @@
+INFO - 11/09/22 20:35:29 - 0:00:00 - ============ Initialized logger ============
+INFO - 11/09/22 20:35:29 - 0:00:00 - cuda: False
+                                     dico_build: S2T&T2S
+                                     dico_eval: default
+                                     dico_max_rank: 10000
+                                     dico_max_size: 0
+                                     dico_method: csls_knn_10
+                                     dico_min_size: 0
+                                     dico_threshold: 0
+                                     dico_train: default
+                                     emb_dim: 300
+                                     exp_id: 
+                                     exp_name: debug
+                                     exp_path: /u/halle/ralev/home_at/Desktop/Hiwi/multilingual-embeddings-anchors/MUSE/dumped/debug/vcixgkhqbu
+                                     export: txt
+                                     max_vocab: 200000
+                                     n_refinement: 5
+                                     normalize_embeddings: 
+                                     seed: -1
+                                     src_emb: models/de_model_python.txt
+                                     src_lang: de
+                                     tgt_emb: models/en_model_python.txt
+                                     tgt_lang: en
+                                     verbose: 2
+INFO - 11/09/22 20:35:29 - 0:00:00 - The experiment will be stored in /u/halle/ralev/home_at/Desktop/Hiwi/multilingual-embeddings-anchors/MUSE/dumped/debug/vcixgkhqbu
+INFO - 11/09/22 20:35:34 - 0:00:04 - Loaded 90509 pre-trained word embeddings.
+INFO - 11/09/22 20:35:44 - 0:00:14 - Loaded 200000 pre-trained word embeddings.

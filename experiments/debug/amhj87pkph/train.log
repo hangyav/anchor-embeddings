@@ -1,0 +1,30 @@
+INFO - 11/09/22 20:32:33 - 0:00:00 - ============ Initialized logger ============
+INFO - 11/09/22 20:32:33 - 0:00:00 - cuda: False
+                                     dico_build: S2T&T2S
+                                     dico_eval: default
+                                     dico_max_rank: 10000
+                                     dico_max_size: 0
+                                     dico_method: csls_knn_10
+                                     dico_min_size: 0
+                                     dico_threshold: 0
+                                     dico_train: data/en-de.txt
+                                     emb_dim: 300
+                                     exp_id: 
+                                     exp_name: debug
+                                     exp_path: /u/halle/ralev/home_at/Desktop/Hiwi/multilingual-embeddings-anchors/MUSE/dumped/debug/amhj87pkph
+                                     export: txt
+                                     max_vocab: 200000
+                                     n_refinement: 5
+                                     normalize_embeddings: 
+                                     seed: -1
+                                     src_emb: models/en_model_python.txt
+                                     src_lang: en
+                                     tgt_emb: models/de_model_python.txt
+                                     tgt_lang: de
+                                     verbose: 2
+INFO - 11/09/22 20:32:33 - 0:00:00 - The experiment will be stored in /u/halle/ralev/home_at/Desktop/Hiwi/multilingual-embeddings-anchors/MUSE/dumped/debug/amhj87pkph
+INFO - 11/09/22 20:32:42 - 0:00:10 - Loaded 200000 pre-trained word embeddings.
+INFO - 11/09/22 20:32:47 - 0:00:15 - Loaded 90509 pre-trained word embeddings.
+INFO - 11/09/22 20:32:48 - 0:00:15 - Found 60269 pairs of words in the dictionary (38355 unique). 41662 other pairs contained at least one unknown word (1568 in lang1, 41440 in lang2)
+INFO - 11/09/22 20:32:49 - 0:00:16 - Validation metric: precision_at_1-csls_knn_10
+INFO - 11/09/22 20:32:49 - 0:00:16 - Starting iteration 0...

@@ -1,0 +1,35 @@
+INFO - 11/10/22 20:55:08 - 0:00:00 - ============ Initialized logger ============
+INFO - 11/10/22 20:55:08 - 0:00:00 - cuda: False
+                                     dico_build: S2T&T2S
+                                     dico_eval: data/de-en.5000-6500.txt
+                                     dico_max_rank: 10000
+                                     dico_max_size: 0
+                                     dico_method: csls_knn_10
+                                     dico_min_size: 0
+                                     dico_threshold: 0
+                                     dico_train: data/de-en.0-5000.txt
+                                     emb_dim: 300
+                                     exp_id: 
+                                     exp_name: SECOND
+                                     exp_path: /u/halle/ralev/home_at/Desktop/Hiwi/multilingual-embeddings-anchors/MUSE/dumped/SECOND/qtpidhejbr
+                                     export: txt
+                                     max_vocab: 600000
+                                     n_refinement: 5
+                                     normalize_embeddings: 
+                                     seed: -1
+                                     src_emb: models/de_model_python.txt
+                                     src_lang: de
+                                     tgt_emb: models/en_model_python.txt
+                                     tgt_lang: en
+                                     verbose: 2
+INFO - 11/10/22 20:55:08 - 0:00:00 - The experiment will be stored in /u/halle/ralev/home_at/Desktop/Hiwi/multilingual-embeddings-anchors/MUSE/dumped/SECOND/qtpidhejbr
+INFO - 11/10/22 20:55:37 - 0:00:29 - Loaded 90509 pre-trained word embeddings.
+INFO - 11/10/22 20:58:35 - 0:03:27 - Loaded 600000 pre-trained word embeddings.
+INFO - 11/10/22 20:58:38 - 0:03:30 - Found 10729 pairs of words in the dictionary (4924 unique). 137 other pairs contained at least one unknown word (113 in lang1, 28 in lang2)
+INFO - 11/10/22 20:58:38 - 0:03:30 - Validation metric: precision_at_1-csls_knn_10
+INFO - 11/10/22 20:58:38 - 0:03:30 - Starting iteration 0...
+INFO - 11/10/22 20:58:39 - 0:03:31 - Found 2775 pairs of words in the dictionary (1463 unique). 52 other pairs contained at least one unknown word (52 in lang1, 2 in lang2)
+INFO - 11/10/22 20:58:47 - 0:03:39 - 1463 source words - nn - Precision at k = 1: 3.554340
+INFO - 11/10/22 20:58:47 - 0:03:39 - 1463 source words - nn - Precision at k = 5: 8.749146
+INFO - 11/10/22 20:58:47 - 0:03:39 - 1463 source words - nn - Precision at k = 10: 13.055366
+INFO - 11/10/22 20:58:48 - 0:03:39 - Found 2775 pairs of words in the dictionary (1463 unique). 52 other pairs contained at least one unknown word (52 in lang1, 2 in lang2)

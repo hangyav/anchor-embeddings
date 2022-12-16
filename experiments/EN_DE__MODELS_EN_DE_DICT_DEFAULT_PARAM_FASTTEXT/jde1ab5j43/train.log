@@ -1,0 +1,25 @@
+INFO - 11/21/22 13:17:59 - 0:00:00 - ============ Initialized logger ============
+INFO - 11/21/22 13:17:59 - 0:00:00 - cuda: False
+                                     dico_build: S2T&T2S
+                                     dico_eval: data/en-de.5000-6500.txt
+                                     dico_max_rank: 10000
+                                     dico_max_size: 0
+                                     dico_method: csls_knn_10
+                                     dico_min_size: 0
+                                     dico_threshold: 0
+                                     dico_train: data/en-de.0-5000.txt
+                                     emb_dim: 300
+                                     exp_id: 
+                                     exp_name: EN_DE__MODELS_EN_DE_DICT_DEFAULT_PARAM_FASTTEXT
+                                     exp_path: /u/halle/ralev/home_at/Desktop/Hiwi/multilingual-embeddings-anchors/MUSE/dumped/EN_DE__MODELS_EN_DE_DICT_DEFAULT_PARAM_FASTTEXT/jde1ab5j43
+                                     export: txt
+                                     max_vocab: 200000
+                                     n_refinement: 5
+                                     normalize_embeddings: 
+                                     seed: -1
+                                     src_emb: muse_data/wiki.en.vec
+                                     src_lang: en
+                                     tgt_emb: muse_data/wiki.de.vec
+                                     tgt_lang: de
+                                     verbose: 2
+INFO - 11/21/22 13:17:59 - 0:00:00 - The experiment will be stored in /u/halle/ralev/home_at/Desktop/Hiwi/multilingual-embeddings-anchors/MUSE/dumped/EN_DE__MODELS_EN_DE_DICT_DEFAULT_PARAM_FASTTEXT/jde1ab5j43

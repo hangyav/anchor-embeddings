@@ -1,0 +1,16 @@
+INFO - 11/20/22 16:10:29 - 0:00:00 - ============ Initialized logger ============
+INFO - 11/20/22 16:10:29 - 0:00:00 - cuda: True
+                                     dico_eval: default
+                                     emb_dim: 300
+                                     exp_id: 
+                                     exp_name: debug
+                                     exp_path: /u/halle/ralev/home_at/Desktop/Hiwi/multilingual-embeddings-anchors/MUSE/dumped/debug/oxfgvka7qu
+                                     max_vocab: 200000
+                                     normalize_embeddings: 
+                                     src_emb: models/en_model_python.txt
+                                     src_lang: en
+                                     tgt_emb: 
+                                     tgt_lang: 
+                                     verbose: 2
+INFO - 11/20/22 16:10:29 - 0:00:00 - The experiment will be stored in /u/halle/ralev/home_at/Desktop/Hiwi/multilingual-embeddings-anchors/MUSE/dumped/debug/oxfgvka7qu
+INFO - 11/20/22 16:10:39 - 0:00:10 - Loaded 200000 pre-trained word embeddings.
