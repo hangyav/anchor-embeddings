@@ -5,7 +5,7 @@ from tqdm import tqdm
 src_path = sys.argv[1]
 tgt_path = sys.argv[2] 
 out_path = sys.argv[3]
-word_len = sys.argv[4]
+word_len = 2
 
 print('Reading files...')
 wv_from_text_src = KeyedVectors.load_word2vec_format(src_path, binary=False)
