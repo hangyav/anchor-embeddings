@@ -1,0 +1,23 @@
+{
+    "experiments": [
+        {
+            "src_model_file": "models/en_model_200k.txt",
+            "tgt_model_file": "models/tl_model_200k.txt",
+            "output_identical_word_pair_file": "data/dictionaries/en_tl_identicals_from_200k.txt",
+            "tgt_model_training_data": "data/tlwiki-latest-pages-articles_preprocessed.txt",
+            "tgt_model_new_name": "models/tl_en_model_200k.txt",
+            "embedding_type_cbow_or_sg": "cbow",
+            "vector_dim": "300",
+            "vector_count": "200000"
+        }
+    ],
+    "evaluate": {
+        "tgt_model_new_name": "models/hil_tl_en_model.txt",
+        "src_model_file": "models/en_model_200k.txt",
+        "tgt_lang": "en",
+        "src_lang": "hil",
+        "path_to_evaluation_file": "data/dictionaries/En-Hil-Lexicon/en-hil_TEST_first_200.txt",
+        "experiment_name": "python_script_test",
+        "cuda": "False"
+    }
+}
