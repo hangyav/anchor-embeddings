@@ -5,7 +5,7 @@
         "src_model_file": "models/en_model_200k.txt",
         "tgt_lang": "en",
         "src_lang": "hil",
-        "path_to_evaluation_file": "data/dictionaries/En-Hil Lexicon/en-hil_TEST_first_200.txt",
+        "path_to_evaluation_file": "data/dictionaries/En-Hil-Lexicon/en-hil_TEST_first_200.txt",
         "experiment_name": "python_script_test",
         "cuda": "False"
     }
