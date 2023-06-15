@@ -14,10 +14,12 @@ def run_experiment(experiment, experiment_index):
     project_dir = os.getcwd()  # get current directory
     src_dir = os.path.join(project_dir, 'src')  # append 'src' to the path
 
+    out_name = experiment['tgt_emb_name'] if bool(experiment['save_tgt_embeddings_without_concat']) else experiment['tgt_model_new_name']
+    
     commands = {
         "find_identical_words": f"python3 {src_dir}/find_identical_words.py {{src_model_file}} {{tgt_model_file}} {{output_identical_word_pair_file}}",
-        "anchor_embedding_training": f"python3 {src_dir}/anchor_embedding_training.py {{output_identical_word_pair_file}} {{tgt_model_training_data}} {{tgt_model_new_name}} 0 {{src_model_file}} {{embedding_type_cbow_or_sg}} {{vector_dim}} {{vector_count}}",
-        "concat_kv": f"python3 {src_dir}/concat_kv.py {{tgt_model_new_name}} {{src_model_file}}"
+        "anchor_embedding_training": f"python3 {src_dir}/anchor_embedding_training.py {{output_identical_word_pair_file}} {{tgt_model_training_data}} {out_name} 0 {{src_model_file}} {{embedding_type_cbow_or_sg}} {{vector_dim}} {{vector_count}}",
+        "concat_kv": f"python3 {src_dir}/concat_kv.py {out_name} {{src_model_file}} {{tgt_model_new_name}}"
     }
     print(
         f"\nExperiment {experiment_index + 1} parameters:\n{json.dumps(experiment, indent=4)}\n")
