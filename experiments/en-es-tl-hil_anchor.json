@@ -1,0 +1,49 @@
+{
+    "experiments": [
+        {
+            "src_model_file": "models/en_model_200k.txt",
+            "tgt_model_file": "models/es_model_200k.txt",
+            "output_identical_word_pair_file": "data/dictionaries/results/en_es_identicals_from_200k.txt",
+            "tgt_model_training_data": "data/eswiki-20230620-pages-articles_preprocessed.txt",
+            "tgt_model_new_name": "models/results/en-es_model_anchor_400k.txt",
+            "embedding_type_cbow_or_sg": "cbow",
+            "vector_dim": "300",
+            "vector_count": "200000",
+            "save_tgt_embeddings_without_concat": false,
+            "tgt_emb_name": ""
+        },
+        {
+            "src_model_file": "models/results/en-es_model_anchor_400k.txt",
+            "tgt_model_file": "models/tl_model_200k.txt",
+            "output_identical_word_pair_file": "data/dictionaries/results/en_es_tl_identicals_from_200k.txt",
+            "tgt_model_training_data": "data/tlwiki-20230620-pages-articles_preprocessed.txt",
+            "tgt_model_new_name": "models/results/en-es-tl_model_anchor_600k.txt",
+            "embedding_type_cbow_or_sg": "cbow",
+            "vector_dim": "300",
+            "vector_count": "200000",
+            "save_tgt_embeddings_without_concat": false,
+            "tgt_emb_name": ""
+        },
+        {
+            "src_model_file": "models/results/en-es-tl_model_anchor_600k.txt",
+            "tgt_model_file": "models/hil_model.txt",
+            "output_identical_word_pair_file": "data/dictionaries/results/en_es_tl_hil_identicals_from_200k.txt",
+            "tgt_model_training_data": "data/hil_literary_religious_preprocessed.txt",
+            "tgt_model_new_name": "models/results/en-es-tl-hil_model_anchor_800k.txt",
+            "embedding_type_cbow_or_sg": "cbow",
+            "vector_dim": "300",
+            "vector_count": "200000",
+            "save_tgt_embeddings_without_concat": true,
+            "tgt_emb_name": "models/results/en-es-tl-hil_model_anchor_final.txt"
+        }
+    ],
+    "evaluate": {
+        "tgt_model_new_name": "models/results/en-es-tl-hil_model_anchor_final.txt",
+        "src_model_file": "models/en_model_200k.txt",
+        "tgt_lang": "en",
+        "src_lang": "hil",
+        "path_to_evaluation_file": "data/dictionaries/En-Hil-Lexicon/en-hil_TEST_first_200.txt",
+        "experiment_name": "en_es_tl_hil_python_script_test",
+        "cuda": "False"
+    }
+}

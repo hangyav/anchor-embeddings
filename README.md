@@ -11,7 +11,9 @@ python3 -m venv venv
 source venv/bin/activate
 pip -V  # ensure correct pip location
 pip install -r requirements.txt
-mv venv_temp/lib/python3.10/site-packages/gensim/models/word2vec.py venv/lib/python3.8/site-packages/gensim/models/word2vec.py
+pip install faiss-cpu # optionally for speedup on cpu or faiss-gpu to run on GPU
+cp gensim/models/word2vec.py venv/lib/python3.8/site-packages/gensim/models/word2vec.py
+# put MUSE under the ./MUSE directory
 ```
 
 ## JSON Configuration
@@ -32,7 +34,7 @@ Here's an example of what the JSON configuration file might look like:
       "embedding_type_cbow_or_sg": "cbow",
       "vector_dim": "300",
       "vector_count": "200000",
-      "save_tgt_embeddings_without_concat": "False", //optional: WARNING: Setting this will save the embeddings twice, once concatenated and once only the target which can take up a lot of space if done on each step.
+      "save_tgt_embeddings_without_concat": false, //optional: WARNING: Setting this will save the embeddings twice, once concatenated and once only the target which can take up a lot of space if done on each step.
       "tgt_emb_name": "" // optional and dependent on "save_tgt_embeddings_without_concat":
     },
     {
@@ -44,7 +46,7 @@ Here's an example of what the JSON configuration file might look like:
       "embedding_type_cbow_or_sg": "cbow",
       "vector_dim": "300",
       "vector_count": "200000",
-      "save_tgt_embeddings_without_concat": "True",
+      "save_tgt_embeddings_without_concat": true,
       "tgt_emb_name": "models/hil_emb_anchors.txt" // necessary if "save_tgt_embeddings_without_concat" is set
     }
   ],
@@ -66,6 +68,12 @@ To run the experiments, use the following command:
 
 ```bash
 python3 run_experiment.py <experiment_config.json>
+```
+
+or to save the output log and results to a file
+
+```bash
+python3 run_experiment.py <experiment_config.json> 2>&1 | tee <log_file>
 ```
 
 Replace <experiment_config.json> with the path to your JSON configuration file.

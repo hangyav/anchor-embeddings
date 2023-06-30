@@ -6,8 +6,11 @@ import sys
 
 def run_command(command, args):
     formatted_command = command.format(**args)
+    print(f"Running command:\n{formatted_command}\n")
     process = subprocess.Popen(formatted_command, shell=True)
     process.wait()
+    if process.returncode != 0:
+        raise Exception('Error in subprocess!')
 
 
 def run_experiment(experiment, experiment_index):
