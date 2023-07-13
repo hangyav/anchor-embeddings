@@ -10,7 +10,10 @@
             "vector_dim": "300",
             "vector_count": "200000",
             "save_tgt_embeddings_without_concat": false,
-            "tgt_emb_name": ""
+            "tgt_emb_name": "",
+            "top_vocab": -1,
+            "fixed": 1
+
         },
         {
             "src_model_file": "models/en_model_200k.txt",
@@ -22,7 +25,10 @@
             "vector_dim": "300",
             "vector_count": "200000",
             "save_tgt_embeddings_without_concat": true,
-            "tgt_emb_name": "models/results/en-hil_model_anchor_final.txt"
+            "tgt_emb_name": "models/results/en-hil_model_anchor_final.txt",
+            "top_vocab": -1,
+            "fixed": 1
+
         }
     ],
     "evaluate": {

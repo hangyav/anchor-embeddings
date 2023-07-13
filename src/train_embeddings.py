@@ -14,11 +14,12 @@ Standard training of a word embedding without the proposed method.
 
 src_data_path = sys.argv[1]
 w2v_embedding_path = sys.argv[2]
+preprocessed = int(sys.argv[3]) if len(sys.argv) > 3 else False
 
 from os.path import exists
 
 
-sentences = SentenceIterator(src_data_path)
+sentences = SentenceIterator(src_data_path, preprocessed)
 
 if exists(w2v_embedding_path):
     print('Loaded model ', w2v_embedding_path)

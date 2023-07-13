@@ -5,7 +5,7 @@ import os
 
 def main(languages, output_file, corpora, embeddings, output_dir, eval_dict,
          embedding_type="cbow", dim=300, vector_count=200000, eval_s2t=False,
-         cuda=False):
+         cuda=False, fixed=True, top_vocab=-1):
     assert len(languages) > 1
     res = dict()
 
@@ -39,6 +39,8 @@ def main(languages, output_file, corpora, embeddings, output_dir, eval_dict,
             'vector_count': vector_count,
             'save_tgt_embeddings_without_concat': save_without_concat,
             'tgt_emb_name': tgt_emb_name,
+            'fixed': 1 if fixed else 0,
+            'top_vocab': top_vocab,
         })
         prev_emb = tgt_model_new_name
 
@@ -71,6 +73,8 @@ if __name__ == "__main__":
     parser.add_argument("--vector_count", help="Top frequent embeddings to keep", type=int, default=200000)
     parser.add_argument("--eval_dict", help="Path to final evaluation dictionary.", type=str, required=True)
     parser.add_argument("--eval_s2t", help="Final eval should be source to target?", type=int, default=0)
+    parser.add_argument("--fixed", help="Whether anchors should be fixed during training", type=int, default=1)
+    parser.add_argument("--top_vocab", help="Number of most frequent words from the target to consider for identical word pair search", type=int, default=-1)
 
     args = parser.parse_args()
     main(**vars(args))

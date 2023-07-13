@@ -35,7 +35,10 @@ Here's an example of what the JSON configuration file might look like:
       "vector_dim": "300",
       "vector_count": "200000",
       "save_tgt_embeddings_without_concat": false, //optional: WARNING: Setting this will save the embeddings twice, once concatenated and once only the target which can take up a lot of space if done on each step.
-      "tgt_emb_name": "" // optional and dependent on "save_tgt_embeddings_without_concat":
+      "tgt_emb_name": "", // optional and dependent on "save_tgt_embeddings_without_concat":
+      "top_vocab": -1,
+      "fixed": 1
+
     },
     {
       "src_model_file": "models/tl_en_model_400k.txt",
@@ -47,7 +50,9 @@ Here's an example of what the JSON configuration file might look like:
       "vector_dim": "300",
       "vector_count": "200000",
       "save_tgt_embeddings_without_concat": true,
-      "tgt_emb_name": "models/hil_emb_anchors.txt" // necessary if "save_tgt_embeddings_without_concat" is set
+      "tgt_emb_name": "models/hil_emb_anchors.txt", // necessary if "save_tgt_embeddings_without_concat" is set
+      "top_vocab": -1,
+      "fixed": 1
     }
   ],
   "evaluate": {

@@ -10,15 +10,19 @@ Util class to go over training data
 
 class SentenceIterator:
 
-    def __init__(self, filepath):
+    def __init__(self, filepath, prerpcessed=False):
         self.filepath = filepath
         self.len = self.get_len()
         print(self.len)
+        self.preprocessed = prerpcessed
 
     def __iter__(self):
         f = open(self.filepath, encoding="utf8")
         for i in tqdm(range(self.len)):
-            yield simple_preprocess(f.readline(), deacc=False)
+            if self.preprocessed:
+                yield f.readline().split()
+            else:
+                yield simple_preprocess(f.readline(), deacc=False)
 
     def get_len(self):
         c = 0

@@ -8,7 +8,10 @@
             "tgt_model_new_name": "models/tl_en_model_200k.txt",
             "embedding_type_cbow_or_sg": "cbow",
             "vector_dim": "300",
-            "vector_count": "200000"
+            "vector_count": "200000",
+            "top_vocab": -1,
+            "fixed": 1
+
         }
     ],
     "evaluate": {

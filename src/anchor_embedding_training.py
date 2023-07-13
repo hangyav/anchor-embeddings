@@ -70,12 +70,13 @@ def main():
     parser.add_argument('size', type=int, help='Dimension of the vectors.')
     parser.add_argument('max_final_vocab', type=int,
                         help='Maximum final vocabulary size.')
+    parser.add_argument('fixed', type=int, help='Whether the anchor embeddings should be kept fixed', default=1)
     args = parser.parse_args()
 
     cwd = os.getcwd()  # Get the current working directory (cwd)
     os.chdir(cwd)
 
-    fixed = True
+    fixed = args.fixed
     combined_vectors = True
     print("Train embeddings start.")
 
