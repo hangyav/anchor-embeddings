@@ -6,7 +6,7 @@ src_path = sys.argv[1]
 tgt_path = sys.argv[2]
 out_path = sys.argv[3]
 top_vocab = -1 if len(sys.argv) < 5 else int(sys.argv[4])
-word_len = 2
+word_len = 0
 
 print('Reading files...')
 wv_from_text_src = KeyedVectors.load_word2vec_format(src_path, binary=False)

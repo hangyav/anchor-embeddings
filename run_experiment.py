@@ -19,19 +19,26 @@ def run_experiment(experiment, experiment_index):
 
     out_name = experiment['tgt_emb_name'] if bool(experiment['save_tgt_embeddings_without_concat']) else experiment['tgt_model_new_name']
 
+    experiment.setdefault('refine_it', 0)
+    experiment.setdefault('refine_top_n', 3)
+    experiment.setdefault('epochs', 5)
+    experiment.setdefault('min_sim', -100)
+    experiment.setdefault('max_sim', 100)
+    experiment.setdefault('anchor_output_dir', f"{experiment['tgt_model_new_name']}.aux")
+
     commands = {
         "find_identical_words": f"python3 {src_dir}/find_identical_words.py {{src_model_file}} {{tgt_model_file}} {{output_identical_word_pair_file}} {{top_vocab}}",
-        "anchor_embedding_training_identical": f"python3 {src_dir}/anchor_embedding_training.py {{output_identical_word_pair_file}} {{tgt_model_training_data}} {out_name} 0 {{src_model_file}} {{embedding_type_cbow_or_sg}} {{vector_dim}} {{vector_count}} {{fixed}}",
-        "anchor_embedding_training_dico": f"python3 {src_dir}/anchor_embedding_training.py {{train_dico}} {{tgt_model_training_data}} {out_name} 0 {{src_model_file}} {{embedding_type_cbow_or_sg}} {{vector_dim}} {{vector_count}} {{fixed}}",
+        "anchor_embedding_training": f"python3 {src_dir}/anchor_embedding_training.py {{output_identical_word_pair_file}} {{tgt_model_training_data}} {out_name} 0 {{src_model_file}} {{embedding_type_cbow_or_sg}} {{vector_dim}} {{vector_count}} {{fixed}} {{refine_it}} {{refine_top_n}} --output_dir {{anchor_output_dir}} --epochs {{epochs}} --min_similarity {{min_sim}} --max_similarity {{max_sim}}",
         "concat_kv": f"python3 {src_dir}/concat_kv.py {out_name} {{src_model_file}} {{tgt_model_new_name}}"
     }
     print(
         f"\nExperiment {experiment_index + 1} parameters:\n{json.dumps(experiment, indent=4)}\n")
 
     if 'train_dico' in experiment:
-        steps = ["anchor_embedding_training_dico", "concat_kv"]
+        steps = ["anchor_embedding_training", "concat_kv"]
+        experiment['output_identical_word_pair_file'] = experiment['train_dico']
     else:
-        steps = ["find_identical_words", "anchor_embedding_training_identical", "concat_kv"]
+        steps = ["find_identical_words", "anchor_embedding_training", "concat_kv"]
     for step in steps:
         print(
             f"\nRunning step '{step}' for experiment {experiment_index + 1}\n")
