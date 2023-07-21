@@ -5,7 +5,8 @@ import os
 
 def main(languages, output_file, corpora, embeddings, output_dir, eval_dict,
          embedding_type="cbow", dim=300, vector_count=200000, eval_s2t=False,
-         cuda=False, fixed=True, top_vocab=-1):
+         cuda=False, fixed=True, top_vocab=-1, train_dict=None,
+         accumulative_train_dico=False, refine_it=0, refine_top_n=3):
     assert len(languages) > 1
     res = dict()
 
@@ -41,7 +42,17 @@ def main(languages, output_file, corpora, embeddings, output_dir, eval_dict,
             'tgt_emb_name': tgt_emb_name,
             'fixed': 1 if fixed else 0,
             'top_vocab': top_vocab,
+            'refine_it': refine_it,
+            'refine_top_n': refine_top_n,
         })
+        if train_dict is not None:
+            if accumulative_train_dico:
+                exps[-1]['train_dico'] = [
+                    train_dict.format(src=languages[si], tgt=lang)
+                    for si in range(idx)
+                ]
+            else:
+                exps[-1]['train_dico'] = train_dict.format(src=languages[idx-1], tgt=lang)
         prev_emb = tgt_model_new_name
 
     res['experiments'] = exps
@@ -71,10 +82,14 @@ if __name__ == "__main__":
     parser.add_argument("--embedding_type", help="cbow or sg", type=str, choices={"cbow", "sg"}, default="cbow")
     parser.add_argument("--dim", help="Vector dimension", type=int, default=300)
     parser.add_argument("--vector_count", help="Top frequent embeddings to keep", type=int, default=200000)
+    parser.add_argument("--train_dict", help="Supervised dictionary with placeholders. Eg: ./{src}-{tgt}.tsv", type=str, default=None)
+    parser.add_argument("--accumulative_train_dico", help="Use all languages' dico in the source space", type=int, default=0)
     parser.add_argument("--eval_dict", help="Path to final evaluation dictionary.", type=str, required=True)
     parser.add_argument("--eval_s2t", help="Final eval should be source to target?", type=int, default=0)
     parser.add_argument("--fixed", help="Whether anchors should be fixed during training", type=int, default=1)
     parser.add_argument("--top_vocab", help="Number of most frequent words from the target to consider for identical word pair search", type=int, default=-1)
+    parser.add_argument("--refine_it", help="Number of refinement iterations", type=int, default=0)
+    parser.add_argument("--refine_top_n", help="top n for dictionay induction", type=int, default=3)
 
     args = parser.parse_args()
     main(**vars(args))

@@ -35,6 +35,17 @@ def run_experiment(experiment, experiment_index):
         f"\nExperiment {experiment_index + 1} parameters:\n{json.dumps(experiment, indent=4)}\n")
 
     if 'train_dico' in experiment:
+        if type(experiment['train_dico']) == list:
+            if not os.path.exists(experiment['anchor_output_dir']):
+                os.makedirs(experiment['anchor_output_dir'])
+
+            path = os.path.join(experiment['anchor_output_dir'], 'train.dico')
+            with open(path, 'w') as fout:
+                for dico in experiment['train_dico']:
+                    with open(dico) as fin:
+                        print(fin.read().strip(), file=fout)
+
+            experiment['train_dico'] = path
         steps = ["anchor_embedding_training", "concat_kv"]
         experiment['output_identical_word_pair_file'] = experiment['train_dico']
     else:

@@ -208,6 +208,7 @@ def anchor_training(vectors_src, training_corpus, bi_dict, size,
             if word not in train_dict:
                 train_dict[word] = vecs_to_copy[word]
 
+    print(f'Training anchor embeddings with {len(train_dict)} vectors')
     model = Word2Vec(training_corpus, vector_size=size, window=5, min_count=min_count,
                      workers=multiprocessing.cpu_count(), sg=train_type, epochs=epochs,
                      fixed_vectors=train_dict, max_final_vocab=max_final_vocab)
