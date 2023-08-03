@@ -6,7 +6,8 @@ import os
 def main(languages, output_file, corpora, embeddings, output_dir, eval_dict,
          embedding_type="cbow", dim=300, vector_count=200000, eval_s2t=False,
          cuda=False, fixed=True, top_vocab=-1, train_dict=None,
-         accumulative_train_dico=False, refine_it=0, refine_top_n=3):
+         accumulative_train_dico=False, refine_it=0, refine_top_n=3,
+         min_sim=-100.0, max_sim=100):
     assert len(languages) > 1
     res = dict()
 
@@ -44,6 +45,8 @@ def main(languages, output_file, corpora, embeddings, output_dir, eval_dict,
             'top_vocab': top_vocab,
             'refine_it': refine_it,
             'refine_top_n': refine_top_n,
+            'min_sim': min_sim,
+            'max_sim': max_sim,
         })
         if train_dict is not None:
             if accumulative_train_dico:
@@ -90,6 +93,8 @@ if __name__ == "__main__":
     parser.add_argument("--top_vocab", help="Number of most frequent words from the target to consider for identical word pair search", type=int, default=-1)
     parser.add_argument("--refine_it", help="Number of refinement iterations", type=int, default=0)
     parser.add_argument("--refine_top_n", help="top n for dictionay induction", type=int, default=3)
+    parser.add_argument("--min_sim", help="minimum similarity for dictionay induction", type=float, default=-100.0)
+    parser.add_argument("--max_sim", help="maximum similarity for dictionay induction", type=float, default=100.0)
 
     args = parser.parse_args()
     main(**vars(args))
