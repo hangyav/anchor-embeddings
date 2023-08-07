@@ -14,6 +14,9 @@ def read_dico(file, reverse=False):
     with open(file) as f:
         for line in f:
             data = line.strip().split()
+            if len(data) < max(src, tgt) + 1:
+                print(f'Ignoreing line: {line}')
+                continue
             res.setdefault(data[src], set()).add(data[tgt])
 
     return res
