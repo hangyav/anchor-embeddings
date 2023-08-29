@@ -1,92 +1,142 @@
-# Multilingual embeddings Anchors
+# Multilingual Embeddings Experiments
 
+This project allows you to run a series of experiments for multilingual embeddings using a single JSON configuration file.
 
+## Setup
 
-## Getting started
+Before running the experiments, you need to set up a virtual environment and install the required packages. Here's how you can do it:
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
-
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
-
-```
-cd existing_repo
-git remote add origin https://gitlab.lrz.de/radoslav.ralev/multilingual-embeddings-anchors.git
-git branch -M main
-git push -uf origin main
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip -V  # ensure correct pip location
+pip install -r requirements.txt
+pip install faiss-cpu # optionally for speedup on cpu or faiss-gpu to run on GPU
+cp gensim/models/word2vec.py venv/lib/python3.8/site-packages/gensim/models/word2vec.py
+# put MUSE under the ./MUSE directory
 ```
 
-## Integrate with your tools
+## JSON Configuration
 
-- [ ] [Set up project integrations](https://gitlab.lrz.de/radoslav.ralev/multilingual-embeddings-anchors/-/settings/integrations)
+The experiments are defined in a JSON configuration file. Each experiment is a JSON object that includes the parameters for the `find_identical_words`, `anchor_embedding_training`, and `concat_kv` steps. The `evaluate` step is defined once at the end of the JSON file.
 
-## Collaborate with your team
+Here's an example of what the JSON configuration file might look like:
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+```json
+{
+  "experiments": [
+    {
+      "src_model_file": "models/en_model_200k.txt",
+      "tgt_model_file": "models/tl_model_200k.txt",
+      "output_identical_word_pair_file": "data/dictionaries/en_tl_identicals_from_200k.txt",
+      "tgt_model_training_data": "data/tlwiki-latest-pages-articles_preprocessed.txt",
+      "tgt_model_new_name": "models/tl_en_model_400k.txt",
+      "embedding_type_cbow_or_sg": "cbow",
+      "vector_dim": "300",
+      "vector_count": "200000",
+      "save_tgt_embeddings_without_concat": false, //optional: WARNING: Setting this will save the embeddings twice, once concatenated and once only the target which can take up a lot of space if done on each step.
+      "tgt_emb_name": "", // optional and dependent on "save_tgt_embeddings_without_concat":
+      "top_vocab": -1,
+      "fixed": 1
 
-## Test and Deploy
+    },
+    {
+      "src_model_file": "models/tl_en_model_400k.txt",
+      "tgt_model_file": "models/hil_model.txt",
+      "output_identical_word_pair_file": "data/dictionaries/en_tl_hil_identicals_from_200k.txt",
+      "tgt_model_training_data": "data/hil_literary_religious_preprocessed",
+      "tgt_model_new_name": "models/hil_tl_en_model_600k.txt",
+      "embedding_type_cbow_or_sg": "cbow",
+      "vector_dim": "300",
+      "vector_count": "200000",
+      "save_tgt_embeddings_without_concat": true,
+      "tgt_emb_name": "models/hil_emb_anchors.txt", // necessary if "save_tgt_embeddings_without_concat" is set
+      "top_vocab": -1,
+      "fixed": 1
+    }
+  ],
+  "evaluate": {
+    "tgt_model_new_name": "models/hil_emb_anchors.txt", // carefully select the correct embeddings file
+    "src_model_file": "models/en_model_200k.txt",
+    "tgt_lang": "en",
+    "src_lang": "hil",
+    "path_to_evaluation_file": "data/dictionaries/En-Hil Lexicon/en-hil_TEST_first_200.txt",
+    "experiment_name": "python_script_test",
+    "cuda": "False"
+  }
+}
+```
 
-Use the built-in continuous integration in GitLab.
+## Running the Experiments
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+To run the experiments, use the following command:
 
-***
+```bash
+python3 run_experiment.py <experiment_config.json>
+```
 
-# Editing this README
+or to save the output log and results to a file
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+```bash
+python3 run_experiment.py <experiment_config.json> 2>&1 | tee <log_file>
+```
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+Replace <experiment_config.json> with the path to your JSON configuration file.
 
-## Name
-Choose a self-explaining name for your project.
+The script will run each experiment in the order they are defined in the JSON file. It will print a message before starting each experiment, before running each step, and before running the final evaluation. The messages include the experiment number, the step name, and the parameters for the step or evaluation.
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+## Arguments
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+Here's a brief explanation of each argument in the JSON configuration file:
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+- `src_model_file`: The source model file for the `find_identical_words`, `anchor_embedding_training`, and `concat_kv` steps.
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+- `tgt_model_file`: The target model file for the `find_identical_words` step.
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+- `output_identical_word_pair_file`: The output file for the `find_identical_words` step and input file for the `anchor_embedding_training` step.
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+- `tgt_model_training_data`: The training data for the `anchor_embedding_training` step.
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+- `tgt_model_new_name`: The output file for the `anchor_embedding_training` and `concat_kv` steps, and the target embeddings for the `evaluate` step.
+
+- `embedding_type_cbow_or_sg`: The type of embeddings (CBOW or skip-gram) for the `anchor_embedding_training` step.
+
+- `vector_dim`: The dimension of the vectors for the `anchor_embedding_training` step.
+
+- `vector_count`: The number of vectors for the `anchor_embedding_training` step.
+
+- `save_tgt_embeddings`: If set to `True`, the target embeddings will be saved without concatenation after the `anchor_embedding_training` step.
+
+- `tgt_lang`: The target language for the `evaluate` step.
+
+- `src_lang`: The source language for the `evaluate` step.
+
+- `path_to_evaluation_file`: The path to the evaluation file for the `evaluate` step.
+
+- `experiment_name`: The name of the experiment for the `evaluate` step.
+
+- `cuda`: If set to `True`, CUDA will be used for the `evaluate` step.
+
+## Troubleshooting
+
+If you encounter any issues while running the experiments, here are a few things you can try:
+
+- Ensure that all the paths in the JSON configuration file are correct and that the files exist.
+
+- Make sure that you have the necessary permissions to read the files and write to the directories specified in the JSON configuration file.
+
+- Check that the `Word2Vec` class in the `gensim` package has a `fixed_vectors` parameter. If it doesn't, you might need to update the `gensim` package or modify the `word2vec.py` file.
+
+- If you're getting out-of-memory errors, try reducing the `vector_count` or using a machine with more memory.
+
+If you're still having issues, please open an issue on the project's GitHub page or contact the project maintainers.
 
 ## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+Contributions to this project are welcome! If you have a feature request, bug report, or proposal, please open an issue on the project's (future) GitHub page. If you want to contribute code, please open a pull request.
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+Please make sure to follow the project's code style and write tests for any new features or changes.
 
 ## License
-For open source projects, say how it is licensed.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+This project is licensed under the MIT License. See the `LICENSE` file for more details.
