@@ -1,4 +1,9 @@
 from gensim.models import Word2Vec as OriginalWord2Vec
+import logging
+import numpy as np
+from numpy import float32 as REAL
+
+logger = logging.getLogger(__name__)
 
 class AnchoredWord2Vec(OriginalWord2Vec):
     def __init__(self, *args, fixed_vectors=None, **kwargs):
