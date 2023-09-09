@@ -12,7 +12,6 @@ source venv/bin/activate
 pip -V  # ensure correct pip location
 pip install -r requirements.txt
 pip install faiss-cpu # optionally for speedup on cpu or faiss-gpu to run on GPU
-cp gensim/models/word2vec.py venv/lib/python3.8/site-packages/gensim/models/word2vec.py
 # put MUSE under the ./MUSE directory
 ```
 
