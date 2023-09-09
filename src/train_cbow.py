@@ -1,10 +1,8 @@
 # Python program to generate word vectors using Word2Vec
 from gensim import utils
 from gensim.models import Word2Vec
-import gensim
 import sys
 from pathlib import Path
-from multiprocessing_generator import ParallelGenerator
 # importing all necessary modules
 from nltk.tokenize import sent_tokenize, word_tokenize
 import warnings

@@ -1,6 +1,5 @@
 from gensim.models import KeyedVectors
 import sys 
-from tqdm import tqdm
 
 src_path = sys.argv[1]
 n = int(sys.argv[2])

@@ -1,7 +1,8 @@
 import argparse
 from tqdm import tqdm
 import os
-from gensim.models import Word2Vec, KeyedVectors
+from anchors import AnchoredWord2Vec
+from gensim.models import KeyedVectors
 import multiprocessing
 import pandas as pd
 import numpy as np
@@ -209,7 +210,7 @@ def anchor_training(vectors_src, training_corpus, bi_dict, size,
                 train_dict[word] = vecs_to_copy[word]
 
     print(f'Training anchor embeddings with {len(train_dict)} vectors')
-    model = Word2Vec(training_corpus, vector_size=size, window=5, min_count=min_count,
+    model = AnchoredWord2Vec(training_corpus, vector_size=size, window=5, min_count=min_count,
                      workers=multiprocessing.cpu_count(), sg=train_type, epochs=epochs,
                      fixed_vectors=train_dict, max_final_vocab=max_final_vocab)
     return model.wv
