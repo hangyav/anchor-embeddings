@@ -7,14 +7,14 @@ logger = logging.getLogger(__name__)
 
 class AnchoredWord2Vec(OriginalWord2Vec):
     def __init__(self, *args, fixed_vectors=None, **kwargs):
-        super().__init__(*args, **kwargs)
         self.fixed_vectors = fixed_vectors
+        super().__init__(*args, **kwargs)
 
     def init_weights(self):
         """Reset all projection weights to an initial (untrained) state, but keep the existing vocabulary."""
         logger.info("resetting layer weights")
         self.wv.resize_vectors(seed=self.seed)
-        
+
         vocab_len = len(self.wv.vectors)
         self.wv.vectors_lockf = np.ones(vocab_len, dtype=REAL)
         if hasattr(self.wv, 'vectors_vocab'):
