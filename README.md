@@ -8,6 +8,8 @@ independent steps, it builds the target language embeddings in a single step by
 bilingual and multilingual embeddings are supported. For further details see
 our published [papers](#papers).
 
+![anchor](https://github.com/hangyav/anchor-embeddings/assets/414596/9410ecd4-be41-457e-aac8-527f31e7c70e)
+
 ## Setup
 
 ```bash
