@@ -1,7 +1,7 @@
 import argparse
 from tqdm import tqdm
 import os
-from anchors import AnchoredWord2Vec
+from anchors import AnchoredWord2Vec, AnchoredFastText
 from gensim.models import KeyedVectors
 import multiprocessing
 import pandas as pd
@@ -192,7 +192,8 @@ def dict2pd(dico, weights=None, columns=['src', 'tgt']):
 
 def anchor_training(vectors_src, training_corpus, bi_dict, size,
                     combined_vectors, limit, fixed, train_type,
-                    max_final_vocab, min_count=3, epochs=5, vecs_to_copy=None):
+                    max_final_vocab, min_count=3, epochs=5, vecs_to_copy=None,
+                    model_type='w2v'):
     if combined_vectors:
         train_dict = get_combined_vectors_from_dict(
             bi_dict, vecs=vectors_src, fixed=fixed, n=limit)
@@ -209,10 +210,18 @@ def anchor_training(vectors_src, training_corpus, bi_dict, size,
             if word not in train_dict:
                 train_dict[word] = vecs_to_copy[word]
 
-    print(f'Training anchor embeddings with {len(train_dict)} vectors')
-    model = AnchoredWord2Vec(training_corpus, vector_size=size, window=5, min_count=min_count,
-                     workers=multiprocessing.cpu_count(), sg=train_type, epochs=epochs,
-                     fixed_vectors=train_dict, max_final_vocab=max_final_vocab)
+    print(f'Training {model_type} anchor embeddings with {len(train_dict)} vectors')
+    if model_type == 'w2v':
+        model = AnchoredWord2Vec(training_corpus, vector_size=size, window=5, min_count=min_count,
+                                 workers=multiprocessing.cpu_count(), sg=train_type, epochs=epochs,
+                                 fixed_vectors=train_dict, max_final_vocab=max_final_vocab)
+    elif model_type == 'ftt':
+        model = AnchoredFastText(training_corpus, vector_size=size, window=5, min_count=min_count,
+                                 workers=multiprocessing.cpu_count(), sg=train_type, epochs=epochs,
+                                 fixed_vectors=train_dict, max_final_vocab=max_final_vocab)
+    else:
+        raise ValueError(f'Only w2v or ftt are valid model_type values. It was: {model_type}')
+
     return model.wv
 
 
@@ -239,6 +248,7 @@ def main():
     parser.add_argument('--epochs', type=int, help='Number of epochs for w2v training', default=5)
     parser.add_argument('--min_similarity', type=float, help='Minimum similarity for dictionay generation', default=-100.0)
     parser.add_argument('--max_similarity', type=float, help='Maximum similarity for dictionay generation', default=100.0)
+    parser.add_argument('--model_type', help='Word2vec or FastText. Options: {w2v, ftt}', default='w2v')
     args = parser.parse_args()
 
     cwd = os.getcwd()  # Get the current working directory (cwd)
@@ -262,6 +272,7 @@ def main():
     min_similarity = args.min_similarity
     max_similarity = args.max_similarity
     output_dir = args.output_dir
+    model_type=args.model_type
 
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
@@ -276,7 +287,8 @@ def main():
     bi_dict = pd.read_csv(bi_dict_path, names=colnames, delim_whitespace=True)
     model = anchor_training(vectors_src, training_corpus, bi_dict, size,
                             combined_vectors, limit, fixed, train_type,
-                            max_final_vocab, epochs=num_epochs)
+                            max_final_vocab, epochs=num_epochs,
+                            model_type=model_type)
 
     for i in range(refine_it):
         print(f"Refining iteration {i+1}...")
@@ -319,7 +331,8 @@ def main():
         print(f'New dictionary size: {len(bi_dict)}')
         model = anchor_training(vectors_src, training_corpus, bi_dict, size,
                                 combined_vectors, limit, fixed, train_type,
-                                max_final_vocab, vecs_to_copy=model)
+                                max_final_vocab, vecs_to_copy=model,
+                                model_type=model_type)
 
     print("Model finished, saving vectors...")
     model.save_word2vec_format(tgt_embedding_path)
