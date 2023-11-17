@@ -3,6 +3,7 @@ import subprocess
 import os
 import sys
 
+PYTHON = sys.executable
 
 def run_command(command, args):
     formatted_command = command.format(**args)
@@ -27,9 +28,9 @@ def run_experiment(experiment, experiment_index):
     experiment.setdefault('anchor_output_dir', f"{experiment['tgt_model_new_name']}.aux")
 
     commands = {
-        "find_identical_words": f"python3 {src_dir}/find_identical_words.py {{src_model_file}} {{tgt_model_file}} {{output_identical_word_pair_file}} {{top_vocab}}",
-        "anchor_embedding_training": f"python3 {src_dir}/anchor_embedding_training.py {{output_identical_word_pair_file}} {{tgt_model_training_data}} {out_name} 0 {{src_model_file}} {{embedding_type_cbow_or_sg}} {{vector_dim}} {{vector_count}} {{fixed}} {{refine_it}} {{refine_top_n}} --output_dir {{anchor_output_dir}} --epochs {{epochs}} --min_similarity {{min_sim}} --max_similarity {{max_sim}}",
-        "concat_kv": f"python3 {src_dir}/concat_kv.py {out_name} {{src_model_file}} {{tgt_model_new_name}}"
+        "find_identical_words": f"{PYTHON} {src_dir}/find_identical_words.py {{src_model_file}} {{tgt_model_file}} {{output_identical_word_pair_file}} {{top_vocab}}",
+        "anchor_embedding_training": f"{PYTHON} {src_dir}/anchor_embedding_training.py {{output_identical_word_pair_file}} {{tgt_model_training_data}} {out_name} 0 {{src_model_file}} {{embedding_type_cbow_or_sg}} {{vector_dim}} {{vector_count}} {{fixed}} {{refine_it}} {{refine_top_n}} --output_dir {{anchor_output_dir}} --epochs {{epochs}} --min_similarity {{min_sim}} --max_similarity {{max_sim}}",
+        "concat_kv": f"{PYTHON} {src_dir}/concat_kv.py {out_name} {{src_model_file}} {{tgt_model_new_name}}"
     }
     print(
         f"\nExperiment {experiment_index + 1} parameters:\n{json.dumps(experiment, indent=4)}\n")
@@ -58,7 +59,7 @@ def run_experiment(experiment, experiment_index):
 
 def main():
     if len(sys.argv) != 2:
-        print("Usage: python3 script.py <experiment_config.json>")
+        print(f"Usage: {PYTHON} script.py <experiment_config.json>")
         sys.exit(1)
 
     config_file = sys.argv[1]
@@ -71,7 +72,7 @@ def main():
         run_experiment(experiment, i)
 
     project_dir = os.getcwd()  # get current directory
-    evaluate_command = f"python3 {project_dir}/MUSE/evaluate.py --tgt_emb {{tgt_model_new_name}} --src_emb {{src_model_file}} --tgt_lang {{tgt_lang}} --src_lang {{src_lang}} --dico_eval {{path_to_evaluation_file}} --exp_name {{experiment_name}} --cuda {{cuda}}"
+    evaluate_command = f"{PYTHON} {project_dir}/MUSE/evaluate.py --tgt_emb {{tgt_model_new_name}} --src_emb {{src_model_file}} --tgt_lang {{tgt_lang}} --src_lang {{src_lang}} --dico_eval {{path_to_evaluation_file}} --exp_name {{experiment_name}} --cuda {{cuda}}"
     print(
         f"\nRunning final evaluation with the following parameters:\n{json.dumps(data['evaluate'], indent=4)}\n")
     run_command(evaluate_command, data['evaluate'])

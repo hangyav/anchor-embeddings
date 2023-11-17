@@ -17,6 +17,8 @@ pip install -r requirements.txt
 # put MUSE under the ./MUSE directory
 ```
 
+NOTE: Developed with python version 3.8.18.
+
 
 ## Running the Experiments
 
@@ -35,6 +37,13 @@ python3 run_experiment.py <experiment_config.json> 2>&1 | tee <log_file>
 Replace `<experiment_config.json>` with the path to your JSON configuration file.
 For more information regarding the JSON configuration files see the
 documentation under the [experiments](experiments) directory.
+
+JSON configuraions can be built manually, or generated using
+`build_chain_setup.py`. For further details see
+
+```
+python3 build_chain_setup.py -h
+```
 
 ## Troubleshooting
 

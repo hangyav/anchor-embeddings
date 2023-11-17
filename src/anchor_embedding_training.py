@@ -273,7 +273,7 @@ def main():
 # vectors_src = KeyedVectors.load(src_embedding_path, mmap='r')
 
     colnames = ['src', 'tgt']
-    bi_dict = pd.read_csv(bi_dict_path, names=colnames, sep=' ')
+    bi_dict = pd.read_csv(bi_dict_path, names=colnames, delim_whitespace=True)
     model = anchor_training(vectors_src, training_corpus, bi_dict, size,
                             combined_vectors, limit, fixed, train_type,
                             max_final_vocab, epochs=num_epochs)

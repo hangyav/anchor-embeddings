@@ -35,6 +35,11 @@ def pivot_dico(dico1, dico2):
 
 
 if __name__ == '__main__':
+    if len(sys.argv) < 4:
+        print('Usage: python pivot_dico.py <dico1> <dico2> <output> [0: if'
+              ' src lang in first column, 1: if trg lang in first column;'
+              ' default: 0] [column_separator; default: \' \']')
+        sys.exit(1)
     dico1_path = sys.argv[1]
     dico2_path = sys.argv[2]
     out_path = sys.argv[3]

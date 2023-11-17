@@ -1,0 +1,30 @@
+{
+    "experiments": [
+        {
+            "src_model_file": "tmp/word_embeddings/enwiki_200K.txt",
+            "tgt_model_training_data": "tmp/corpora/hil.txt",
+            "tgt_model_new_name": "tmp/word_embeddings/en_hil_anchor.txt",
+            "embedding_type_cbow_or_sg": "cbow",
+            "vector_dim": 300,
+            "vector_count": 200000,
+            "save_tgt_embeddings_without_concat": true,
+            "tgt_emb_name": "tmp/word_embeddings/hil_anchor_final.txt",
+            "fixed": 1,
+            "top_vocab": -1,
+            "refine_it": 0,
+            "refine_top_n": 3,
+            "train_dico": [
+                "data/lexicons/en-hil.train.tsv"
+            ]
+        }
+    ],
+    "evaluate": {
+        "tgt_model_new_name": "tmp/word_embeddings/hil_anchor_final.txt",
+        "src_model_file": "tmp/word_embeddings/enwiki_200K.txt",
+        "tgt_lang": "hil",
+        "src_lang": "en",
+        "path_to_evaluation_file": "data/lexicons/en-hil.test.tsv",
+        "experiment_name": "en_hil_chain",
+        "cuda": "False"
+    }
+}
