@@ -58,12 +58,21 @@ If you encounter any issues while running the experiments, here are a few things
 If you're still having issues, please open an issue on the project's GitHub page or contact the project maintainers.
 
 ## Papers
-[1] Tobias Eder, Viktor Hangya, and Alexander Fraser. 2021. [Anchor-based Bilingual Word Embeddings for Low-Resource Languages](https://aclanthology.org/2021.acl-short.30). In Proceedings of the 59th Annual Meeting of the Association for Computational Linguistics and the 11th International Joint Conference on Natural Language Processing (Volume 2: Short Papers)
+[1] Viktor Hangya, Silvia Severini, Radoslav Ralev, Alexander Fraser and Hinrich Schütze. 2023. [Multilingual Word Embeddings for Low-Resource Languages using Anchors and a Chain of Related Languages](#). In Proceedings of the The 3nd Workshop on Multi-lingual Representation Learning (MRL)
 
-[2] Viktor Hangya, Silvia Severini, Radoslav Ralev, Alexander Fraser and Hinrich Schütze. 2023. [Multilingual Word Embeddings for Low-Resource Languages using Anchors and a Chain of Related Languages](#). In Proceedings of the The 3nd Workshop on Multi-lingual Representation Learning (MRL)
+[2] Tobias Eder, Viktor Hangya, and Alexander Fraser. 2021. [Anchor-based Bilingual Word Embeddings for Low-Resource Languages](https://aclanthology.org/2021.acl-short.30). In Proceedings of the 59th Annual Meeting of the Association for Computational Linguistics and the 11th International Joint Conference on Natural Language Processing (Volume 2: Short Papers)
+
+[3] Leah Michel, Viktor Hangya, and Alexander Fraser. 2020. [Exploring Bilingual Word Embeddings for Hiligaynon](https://aclanthology.org/2020.lrec-1.313.pdf), a Low-Resource Language. In Proceedings of The 12th Language Resources and Evaluation Conference
 
 
 ```
+@inproceedings{hangya-etal-2023-multilingual-anchor,
+    author = {Hangya, Viktor and Severini, Silvia and Ralev, Radoslav and Fraser, Alexander and Sch{\"u}tze, Hinrich},
+    title = {{Multilingual Word Embeddings for Low-Resource Languages using Anchors and a Chain of Related Languages}},
+    booktitle = {Proceedings of the The 3nd Workshop on Multi-lingual Representation Learning (MRL)},
+    year = {2023},
+}
+
 @inproceedings{eder-etal-2021-anchor,
     title = {"Anchor-based Bilingual Word Embeddings for Low-Resource Languages"},
     author = "Eder, Tobias  and Hangya, Viktor  and Fraser, Alexander",
@@ -73,11 +82,13 @@ If you're still having issues, please open an issue on the project's GitHub page
     pages = "227--232",
 }
 
-@inproceedings{hangya-etal-2023-multilingual-anchor,
-    author = {Hangya, Viktor and Severini, Silvia and Ralev, Radoslav and Fraser, Alexander and Sch{\"u}tze, Hinrich},
-    title = {{Multilingual Word Embeddings for Low-Resource Languages using Anchors and a Chain of Related Languages}},
-    booktitle = {Proceedings of the The 3nd Workshop on Multi-lingual Representation Learning (MRL)},
-    year = {2023},
+@inproceedings{michel2020exploring,
+  title={Exploring bilingual word embeddings for Hiligaynon, a low-resource language},
+  author={Michel, Leah and Hangya, Viktor and Fraser, Alexander},
+  booktitle={Proceedings of the Twelfth Language Resources and Evaluation Conference},
+  pages={2573--2580},
+  url = {https://aclanthology.org/2020.lrec-1.313.pdf},
+  year={2020}
 }
 ```
 
