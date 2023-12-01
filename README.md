@@ -8,7 +8,8 @@ independent steps, it builds the target language embeddings in a single step by
 bilingual and multilingual embeddings are supported. For further details see
 our published [papers](#papers).
 
-![anchor](https://github.com/hangyav/anchor-embeddings/assets/414596/75f59783-5114-47af-a56e-8c774c4d91a7)
+![anchor](https://github.com/hangyav/anchor-embeddings/assets/414596/86378b14-e1cf-4510-8c77-e81857cc230b)
+
 
 ## Setup
 
