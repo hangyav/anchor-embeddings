@@ -11,6 +11,19 @@ our published [papers](#papers).
 ![anchor](https://github.com/hangyav/anchor-embeddings/assets/414596/86378b14-e1cf-4510-8c77-e81857cc230b)
 
 
+## Released Resources
+
+* Embeddings built in our latest [paper]((https://aclanthology.org/2023.mrl-1.8/)) for languages listed below: **[download](https://cistern.cis.lmu.de/anchor-embeddings/embeddings.zip)**
+  * English (eng)
+  * Kazakh (kaz)
+  * Tagalog (tgl)
+  * Icelandic (ice)
+  * Swahili (swa)
+  * Chuvas (chv)
+  * Yakut (sah)
+  * Faroese (fao)
+  * Hiligaynon (hil)
+
 ## Setup
 
 ```bash
@@ -59,7 +72,7 @@ If you encounter any issues while running the experiments, here are a few things
 If you're still having issues, please open an issue on the project's GitHub page or contact the project maintainers.
 
 ## Papers
-[1] Viktor Hangya, Silvia Severini, Radoslav Ralev, Alexander Fraser and Hinrich Schütze. 2023. [Multilingual Word Embeddings for Low-Resource Languages using Anchors and a Chain of Related Languages](#). In Proceedings of the The 3nd Workshop on Multi-lingual Representation Learning (MRL)
+[1] Viktor Hangya, Silvia Severini, Radoslav Ralev, Alexander Fraser and Hinrich Schütze. 2023. [Multilingual Word Embeddings for Low-Resource Languages using Anchors and a Chain of Related Languages](https://aclanthology.org/2023.mrl-1.8/). In Proceedings of the The 3nd Workshop on Multi-lingual Representation Learning (MRL)
 
 [2] Tobias Eder, Viktor Hangya, and Alexander Fraser. 2021. [Anchor-based Bilingual Word Embeddings for Low-Resource Languages](https://aclanthology.org/2021.acl-short.30). In Proceedings of the 59th Annual Meeting of the Association for Computational Linguistics and the 11th International Joint Conference on Natural Language Processing (Volume 2: Short Papers)
 
@@ -67,11 +80,13 @@ If you're still having issues, please open an issue on the project's GitHub page
 
 
 ```
-@inproceedings{hangya-etal-2023-multilingual-anchor,
-    author = {Hangya, Viktor and Severini, Silvia and Ralev, Radoslav and Fraser, Alexander and Sch{\"u}tze, Hinrich},
-    title = {{Multilingual Word Embeddings for Low-Resource Languages using Anchors and a Chain of Related Languages}},
-    booktitle = {Proceedings of the The 3nd Workshop on Multi-lingual Representation Learning (MRL)},
-    year = {2023},
+@inproceedings{hangya-etal-2023-multilingual,
+  author = {Hangya, Viktor and Severini, Silvia and Ralev, Radoslav and Fraser, Alexander and Schütze, Hinrich},
+  title = {Multilingual Word Embeddings for Low-Resource Languages using Anchors and a Chain of Related Languages},
+  booktitle = {{Proceedings of the 3rd Workshop on Multi-lingual Representation Learning (MRL)}},
+  pages = {95--105},
+  url = {https://aclanthology.org/2023.mrl-1.8},
+  year = {2023},
 }
 
 @inproceedings{eder-etal-2021-anchor,
