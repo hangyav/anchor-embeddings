@@ -3,11 +3,27 @@ import json
 import os
 
 
-def main(languages, output_file, corpora, embeddings, output_dir, eval_dict,
-         embedding_type="cbow", dim=300, vector_count=200000, eval_s2t=False,
-         cuda=False, fixed=True, top_vocab=-1, train_dict=None,
-         accumulative_train_dico=False, refine_it=0, refine_top_n=3,
-         min_sim=-100.0, max_sim=100):
+def main(
+    languages,
+    output_file,
+    corpora,
+    embeddings,
+    output_dir,
+    eval_dict=None,
+    embedding_type="cbow",
+    dim=300,
+    vector_count=200000,
+    eval_s2t=False,
+    cuda=False,
+    fixed=True,
+    top_vocab=-1,
+    train_dict=None,
+    accumulative_train_dico=False,
+    refine_it=0,
+    refine_top_n=3,
+    min_sim=-100.0,
+    max_sim=100,
+):
     assert len(languages) > 1
     res = dict()
 
@@ -60,16 +76,17 @@ def main(languages, output_file, corpora, embeddings, output_dir, eval_dict,
 
     res['experiments'] = exps
 
-    eval = {
-        'tgt_model_new_name': exps[-1]['tgt_emb_name'] if eval_s2t else exps[0]['src_model_file'],
-        'src_model_file': exps[0]['src_model_file'] if eval_s2t else exps[-1]['tgt_emb_name'],
-        'tgt_lang': languages[-1] if eval_s2t else languages[0],
-        'src_lang': languages[0] if eval_s2t else languages[-1],
-        'path_to_evaluation_file': eval_dict,
-        'experiment_name': f'{"_".join(languages)}_chain',
-        'cuda': 'True' if cuda else 'False',
-    }
-    res['evaluate'] = eval
+    if eval_dict is not None:
+        eval = {
+            'tgt_model_new_name': exps[-1]['tgt_emb_name'] if eval_s2t else exps[0]['src_model_file'],
+            'src_model_file': exps[0]['src_model_file'] if eval_s2t else exps[-1]['tgt_emb_name'],
+            'tgt_lang': languages[-1] if eval_s2t else languages[0],
+            'src_lang': languages[0] if eval_s2t else languages[-1],
+            'path_to_evaluation_file': eval_dict,
+            'experiment_name': f'{"_".join(languages)}_chain',
+            'cuda': 'True' if cuda else 'False',
+        }
+        res['evaluate'] = eval
 
     with open(output_file, 'w') as fout:
         json.dump(res, fout, indent=4)
@@ -87,7 +104,7 @@ if __name__ == "__main__":
     parser.add_argument("--vector_count", help="Top frequent embeddings to keep", type=int, default=200000)
     parser.add_argument("--train_dict", help="Supervised dictionary with placeholders. Eg: ./{src}-{tgt}.tsv", type=str, default=None)
     parser.add_argument("--accumulative_train_dico", help="Use all languages' dico in the source space", type=int, default=0)
-    parser.add_argument("--eval_dict", help="Path to final evaluation dictionary.", type=str, required=True)
+    parser.add_argument("--eval_dict", help="Path to final evaluation dictionary.", type=str, default=None)
     parser.add_argument("--eval_s2t", help="Final eval should be source to target?", type=int, default=0)
     parser.add_argument("--fixed", help="Whether anchors should be fixed during training", type=int, default=1)
     parser.add_argument("--top_vocab", help="Number of most frequent words from the target to consider for identical word pair search", type=int, default=-1)

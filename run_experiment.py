@@ -71,11 +71,12 @@ def main():
         print(f"\nStarting experiment {i + 1}...\n")
         run_experiment(experiment, i)
 
-    project_dir = os.getcwd()  # get current directory
-    evaluate_command = f"{PYTHON} {project_dir}/MUSE/evaluate.py --tgt_emb {{tgt_model_new_name}} --src_emb {{src_model_file}} --tgt_lang {{tgt_lang}} --src_lang {{src_lang}} --dico_eval {{path_to_evaluation_file}} --exp_name {{experiment_name}} --cuda {{cuda}}"
-    print(
-        f"\nRunning final evaluation with the following parameters:\n{json.dumps(data['evaluate'], indent=4)}\n")
-    run_command(evaluate_command, data['evaluate'])
+    if 'evaluate' in data:
+        project_dir = os.getcwd()  # get current directory
+        evaluate_command = f"{PYTHON} {project_dir}/MUSE/evaluate.py --tgt_emb {{tgt_model_new_name}} --src_emb {{src_model_file}} --tgt_lang {{tgt_lang}} --src_lang {{src_lang}} --dico_eval {{path_to_evaluation_file}} --exp_name {{experiment_name}} --cuda {{cuda}}"
+        print(
+            f"\nRunning final evaluation with the following parameters:\n{json.dumps(data['evaluate'], indent=4)}\n")
+        run_command(evaluate_command, data['evaluate'])
 
 
 if __name__ == "__main__":
